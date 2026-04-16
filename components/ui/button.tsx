@@ -26,11 +26,11 @@ export function Button({
     const baseStyles = "inline-flex items-center justify-center gap-2 font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
 
     const variantStyles = {
-        primary: "bg-gradient-to-r from-red-600 to-rose-700 text-white hover:from-red-700 hover:to-rose-800 focus:ring-red-500 shadow-lg hover:shadow-xl backdrop-blur-sm",
-        secondary: "bg-zinc-800/80 dark:bg-zinc-900/80 text-zinc-100 dark:text-zinc-50 hover:bg-zinc-700/80 dark:hover:bg-zinc-800/80 focus:ring-red-500 backdrop-blur-md border border-zinc-700/50",
-        outline: "border-2 border-red-500/50 dark:border-red-600/50 text-red-700 dark:text-red-400 hover:bg-red-500/10 dark:hover:bg-red-600/10 focus:ring-red-500 backdrop-blur-sm",
-        ghost: "text-zinc-300 dark:text-zinc-400 hover:bg-zinc-800/50 dark:hover:bg-zinc-900/50 focus:ring-red-500 backdrop-blur-sm",
-        danger: "bg-gradient-to-r from-rose-600 to-pink-700 text-white hover:from-rose-700 hover:to-pink-800 focus:ring-rose-500 shadow-lg hover:shadow-xl backdrop-blur-sm",
+        primary: "bg-gradient-to-r from-pink-500 to-rose-400 text-white hover:from-pink-600 hover:to-rose-500 focus:ring-pink-500 shadow-lg hover:shadow-xl backdrop-blur-sm",
+        secondary: "bg-pink-100/80 dark:bg-pink-900/40 text-black dark:text-pink-100 hover:bg-pink-200/80 dark:hover:bg-pink-800/40 focus:ring-pink-500 backdrop-blur-md border border-pink-200/50 dark:border-pink-800/50",
+        outline: "border-2 border-pink-500/50 dark:border-pink-600/50 text-black dark:text-pink-100 hover:bg-pink-500/10 dark:hover:bg-pink-600/10 focus:ring-pink-500 backdrop-blur-sm",
+        ghost: "text-black dark:text-pink-100 hover:bg-pink-500/10 dark:hover:bg-pink-600/10 focus:ring-pink-500 backdrop-blur-sm",
+        danger: "bg-gradient-to-r from-rose-500 to-red-600 text-white hover:from-rose-600 hover:to-red-700 focus:ring-rose-500 shadow-lg hover:shadow-xl backdrop-blur-sm",
     }
 
     const sizeStyles = {

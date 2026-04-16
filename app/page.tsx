@@ -70,7 +70,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-black to-zinc-950 flex flex-col items-center">
+    <div className="min-h-screen bg-white flex flex-col items-center">
 
       <div className="w-full md:w-8/9 flex flex-col mt-10 mb-10">
         {/* Scenes Section */}

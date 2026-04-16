@@ -71,7 +71,7 @@ export default function CharactersPage() {
     const filterScene = sceneFilter ? scenes.find(s => s.id === sceneFilter) : null
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-black to-zinc-950">
+        <div className="min-h-screen bg-white">
             <div className="container md:w-8/9 mx-auto px-4 py-8">
                 {/* Header */}
                 <PageHeader

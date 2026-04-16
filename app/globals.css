@@ -4,13 +4,35 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #09090b;
+  --foreground: #000000;
+  --primary: #f06292;
+  --primary-foreground: #ffffff;
+  --secondary: #fffafa;
+  --secondary-foreground: #ad1457;
+  --accent: #ff80ab;
+  --accent-foreground: #ffffff;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --border: #f8bbd0;
+  --input: #f8bbd0;
+  --ring: #f06292;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #000000;
-    --foreground: #fafafa;
+    --background: #ffffff;
+    --foreground: #000000;
+    --primary: #f06292;
+    --primary-foreground: #ffffff;
+    --secondary: #fffafa;
+    --secondary-foreground: #ad1457;
+    --accent: #ff80ab;
+    --accent-foreground: #ffffff;
+    --card: #ffffff;
+    --card-foreground: #000000;
+    --border: #f8bbd0;
+    --input: #f8bbd0;
+    --ring: #f06292;
   }
 }
 

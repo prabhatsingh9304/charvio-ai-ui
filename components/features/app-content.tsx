@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react"
 import type { Scene, Character, SessionResponse } from "@/types/types"
 import { Tabs } from "@/components/ui/tabs"
-import { SceneCard } from "@/components/features/scene-card"
-import { CharacterCard } from "@/components/features/character-card"
+import { SceneCard } from "@/app/components/scene-card"
+import { CharacterCard } from "@/app/components/character-card"
 import { ChatInterface } from "@/app/chat/chat-interface"
 import { getScenes } from "@/lib/scenes-api"
 import { getCharacters } from "@/lib/characters-api"
@@ -79,8 +79,8 @@ export function AppContent() {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
                 <div className="text-center">
-                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-zinc-900 border-r-transparent dark:border-zinc-50 dark:border-r-transparent"></div>
-                    <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">Loading...</p>
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-pink-600 border-r-transparent dark:border-pink-400 dark:border-r-transparent"></div>
+                    <p className="mt-4 text-sm text-pink-600 dark:text-pink-400">Loading...</p>
                 </div>
             </div>
         )
@@ -90,8 +90,8 @@ export function AppContent() {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
                 <div className="text-center max-w-md">
-                    <p className="text-red-600 dark:text-red-400 font-medium">Error loading data</p>
-                    <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{error}</p>
+                    <p className="text-rose-600 dark:text-rose-400 font-medium">Error loading data</p>
+                    <p className="mt-2 text-sm text-pink-600 dark:text-pink-400">{error}</p>
                 </div>
             </div>
         )
@@ -103,24 +103,24 @@ export function AppContent() {
             label: "Home",
             content: (
                 <div className="max-w-3xl mx-auto text-center space-y-6">
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-zinc-50 dark:to-zinc-400 bg-clip-text text-transparent">
+                    <h1 className="text-4xl font-bold text-black">
                         Welcome to Sim City
                     </h1>
-                    <p className="text-lg text-zinc-600 dark:text-zinc-400">
+                    <p className="text-lg text-black/70">
                         Explore immersive scenes and meet fascinating characters in this interactive world.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
-                        <div className="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 border border-blue-200 dark:border-blue-800">
-                            <div className="text-3xl font-bold text-blue-900 dark:text-blue-300">{scenes.length}</div>
-                            <div className="text-sm text-blue-700 dark:text-blue-400 mt-1">Scenes</div>
+                        <div className="p-6 rounded-xl bg-white border border-pink-100 dark:border-pink-800 shadow-sm">
+                            <div className="text-3xl font-bold text-black">{scenes.length}</div>
+                            <div className="text-sm text-pink-700 dark:text-pink-400 mt-1">Scenes</div>
                         </div>
-                        <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/30 dark:to-purple-900/30 border border-purple-200 dark:border-purple-800">
-                            <div className="text-3xl font-bold text-purple-900 dark:text-purple-300">{characters.length}</div>
-                            <div className="text-sm text-purple-700 dark:text-purple-400 mt-1">Characters</div>
+                        <div className="p-6 rounded-xl bg-white border border-rose-100 dark:border-rose-800 shadow-sm">
+                            <div className="text-3xl font-bold text-black">{characters.length}</div>
+                            <div className="text-sm text-rose-700 dark:text-rose-400 mt-1">Characters</div>
                         </div>
-                        <div className="p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950/30 dark:to-emerald-900/30 border border-emerald-200 dark:border-emerald-800">
-                            <div className="text-3xl font-bold text-emerald-900 dark:text-emerald-300">∞</div>
-                            <div className="text-sm text-emerald-700 dark:text-emerald-400 mt-1">Stories</div>
+                        <div className="p-6 rounded-xl bg-white border border-fuchsia-100 dark:border-fuchsia-800 shadow-sm">
+                            <div className="text-3xl font-bold text-black">∞</div>
+                            <div className="text-sm text-fuchsia-700 dark:text-fuchsia-400 mt-1">Stories</div>
                         </div>
                     </div>
                 </div>
@@ -154,8 +154,8 @@ export function AppContent() {
                                 <SceneCard
                                     key={scene.id}
                                     scene={scene}
-                                    isSelected={selectedScene?.id === scene.id}
-                                    onSelect={handleSceneSelect}
+                                    selected={selectedScene?.id === scene.id}
+                                    onClick={() => handleSceneSelect(scene)}
                                 />
                             ))}
                         </div>
@@ -202,7 +202,8 @@ export function AppContent() {
                                         key={character.id}
                                         character={character}
                                         scene={characterScene}
-                                        onClick={handleCharacterClick}
+                                        onStartChat={handleCharacterClick}
+                                        isCreating={loading}
                                     />
                                 )
                             })}

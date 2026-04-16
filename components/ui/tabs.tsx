@@ -31,14 +31,14 @@ export function Tabs({ tabs, defaultTab }: TabsProps) {
                                 className={`
                   relative py-4 px-1 text-sm font-medium transition-colors duration-200
                   ${isActive
-                                        ? "text-zinc-900 dark:text-zinc-50"
-                                        : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
+                                        ? "text-black"
+                                        : "text-black/40 hover:text-black/70"
                                     }
                 `}
                             >
                                 {tab.label}
                                 {isActive && (
-                                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-zinc-50 rounded-full" />
+                                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-500 rounded-full" />
                                 )}
                             </button>
                         )

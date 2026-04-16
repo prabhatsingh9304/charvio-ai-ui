@@ -24,11 +24,11 @@ export function Progress({
     }
 
     const variantStyles = {
-        default: "bg-zinc-100 dark:bg-zinc-50",
-        gradient: "bg-gradient-to-r from-red-600 to-rose-700",
-        success: "bg-gradient-to-r from-emerald-600 to-green-700",
-        warning: "bg-gradient-to-r from-amber-600 to-orange-700",
-        danger: "bg-gradient-to-r from-rose-600 to-pink-700",
+        default: "bg-pink-100 dark:bg-pink-900/30",
+        gradient: "bg-gradient-to-r from-pink-500 to-rose-400",
+        success: "bg-gradient-to-r from-emerald-500 to-green-600",
+        warning: "bg-gradient-to-r from-amber-500 to-orange-600",
+        danger: "bg-gradient-to-r from-rose-500 to-red-600",
     }
 
     return (

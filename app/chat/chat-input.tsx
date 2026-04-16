@@ -1,14 +1,26 @@
 "use client"
 
 import { useState, KeyboardEvent } from "react"
+import type { Suggestion } from "@/types/types"
+import { SuggestionBubbles } from "./suggestion-bubbles"
 
 type ChatInputProps = {
     onSend: (message: string) => void
     disabled?: boolean
     placeholder?: string
+    suggestions?: Suggestion[]
+    isSuggestionsLoading?: boolean
+    onSuggestionSelect?: (text: string, id: string) => void
 }
 
-export function ChatInput({ onSend, disabled = false, placeholder = "Type your message..." }: ChatInputProps) {
+export function ChatInput({
+    onSend,
+    disabled = false,
+    placeholder = "Type your message...",
+    suggestions = [],
+    isSuggestionsLoading = false,
+    onSuggestionSelect,
+}: ChatInputProps) {
     const [message, setMessage] = useState("")
 
     const handleSend = () => {
@@ -25,9 +37,21 @@ export function ChatInput({ onSend, disabled = false, placeholder = "Type your m
         }
     }
 
+    const handleSuggestionSelect = (text: string, id: string) => {
+        setMessage(text)
+        onSuggestionSelect?.(text, id)
+    }
+
     return (
         <div className="w-full pb-6 pt-2 z-20">
-            <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800">
+            {/* Suggestion bubbles */}
+            <SuggestionBubbles
+                suggestions={suggestions}
+                onSelect={handleSuggestionSelect}
+                isLoading={isSuggestionsLoading}
+            />
+
+            <div className="bg-white/80 dark:bg-pink-950/80 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-pink-100 dark:border-pink-800">
                 <div className="flex gap-3 items-end">
                     <textarea
                         value={message}
@@ -36,7 +60,7 @@ export function ChatInput({ onSend, disabled = false, placeholder = "Type your m
                         disabled={disabled}
                         placeholder={placeholder}
                         rows={1}
-                        className="flex-1 resize-none rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 px-4 py-3 text-sm text-zinc-900 dark:text-zinc-50 placeholder:text-zinc-500 dark:placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 disabled:opacity-50 disabled:cursor-not-allowed max-h-32 overflow-y-auto"
+                        className="flex-1 resize-none rounded-xl border border-pink-100 dark:border-pink-800 bg-pink-50/50 dark:bg-pink-950/50 px-4 py-3 text-sm text-black dark:text-pink-100 placeholder:text-pink-400 dark:placeholder:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-400 disabled:opacity-50 disabled:cursor-not-allowed max-h-32 overflow-y-auto"
                         style={{
                             height: 'auto',
                             minHeight: '44px',
@@ -50,7 +74,7 @@ export function ChatInput({ onSend, disabled = false, placeholder = "Type your m
                     <button
                         onClick={handleSend}
                         disabled={disabled || !message.trim()}
-                        className="h-[46px] rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-6 font-medium text-white transition-all hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-blue-500 disabled:hover:to-purple-600 flex items-center gap-2 shadow-sm whitespace-nowrap"
+                        className="h-[46px] rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 px-6 font-medium text-white transition-all hover:from-pink-600 hover:to-rose-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-pink-500 disabled:hover:to-rose-400 flex items-center gap-2 shadow-sm whitespace-nowrap"
                     >
                         {disabled ? (
                             <>

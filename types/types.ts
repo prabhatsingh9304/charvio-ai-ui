@@ -59,9 +59,27 @@ export type ChatRequest = {
 
 export type ChatResponse = {
     session_id: string
-    speaker: string
-    message: string
+    messages: {
+        speaker: string
+        message: string
+    }[]
     tension: number
     scene_vars: Record<string, unknown>
     next_actor: string
+}
+
+// Suggestion-related types
+export type Suggestion = {
+    id: string
+    text: string
+}
+
+export type SuggestionRequest = {
+    session_id: string
+    num_suggestions?: number
+}
+
+export type SuggestionResponse = {
+    session_id: string
+    suggestions: Suggestion[]
 }

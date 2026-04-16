@@ -7,8 +7,8 @@ type CardProps = {
 }
 
 export function Card({ children, className = "", onClick }: CardProps) {
-    const baseStyles = "rounded-xl border border-zinc-800/50 bg-zinc-900/40 dark:bg-black/40 backdrop-blur-md shadow-lg transition-all duration-300"
-    const interactiveStyles = onClick ? "cursor-pointer hover:shadow-2xl hover:border-red-600/50 dark:hover:border-red-500/50 hover:bg-zinc-900/60" : ""
+    const baseStyles = "rounded-xl border border-pink-100/50 dark:border-pink-900/50 bg-white/40 dark:bg-pink-950/20 backdrop-blur-md shadow-lg transition-all duration-300"
+    const interactiveStyles = onClick ? "cursor-pointer hover:shadow-2xl hover:border-pink-500/50 dark:hover:border-pink-400/50 hover:bg-pink-50/50 dark:hover:bg-pink-900/10" : ""
 
     return (
         <div
@@ -40,7 +40,7 @@ type CardTitleProps = {
 
 export function CardTitle({ children, className = "" }: CardTitleProps) {
     return (
-        <h3 className={`text-xl font-semibold text-zinc-100 ${className}`}>
+        <h3 className={`text-xl font-semibold text-black ${className}`}>
             {children}
         </h3>
     )

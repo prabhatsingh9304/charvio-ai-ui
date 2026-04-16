@@ -22,10 +22,10 @@ export function Badge({
 
     const variantStyles = {
         default: "bg-zinc-800/60 dark:bg-zinc-900/60 text-zinc-200 dark:text-zinc-300 backdrop-blur-md border border-zinc-700/50",
-        primary: "bg-gradient-to-r from-red-600/20 to-rose-700/20 text-red-200 dark:text-red-300 border border-red-500/30 dark:border-red-600/30 backdrop-blur-md",
-        success: "bg-gradient-to-r from-emerald-600/20 to-green-700/20 text-emerald-200 dark:text-emerald-300 border border-emerald-500/30 dark:border-emerald-600/30 backdrop-blur-md",
-        warning: "bg-gradient-to-r from-amber-600/20 to-orange-700/20 text-amber-200 dark:text-amber-300 border border-amber-500/30 dark:border-amber-600/30 backdrop-blur-md",
-        danger: "bg-gradient-to-r from-rose-600/20 to-pink-700/20 text-rose-200 dark:text-rose-300 border border-rose-500/30 dark:border-rose-600/30 backdrop-blur-md",
+        primary: "bg-pink-100/30 dark:bg-pink-900/40 text-black dark:text-pink-100 border border-pink-200/50 dark:border-pink-800/50 backdrop-blur-md",
+        success: "bg-emerald-100/30 dark:bg-emerald-900/40 text-black dark:text-emerald-300 border border-emerald-200/50 dark:border-emerald-800/50 backdrop-blur-md",
+        warning: "bg-amber-100/30 dark:bg-amber-900/40 text-black dark:text-amber-300 border border-amber-200/50 dark:border-amber-800/50 backdrop-blur-md",
+        danger: "bg-rose-100/30 dark:bg-rose-900/40 text-black dark:text-rose-300 border border-rose-200/50 dark:border-rose-800/50 backdrop-blur-md",
         info: "bg-gradient-to-r from-cyan-600/20 to-blue-700/20 text-cyan-200 dark:text-cyan-300 border border-cyan-500/30 dark:border-cyan-600/30 backdrop-blur-md",
     }
 
@@ -37,10 +37,10 @@ export function Badge({
 
     const dotColors = {
         default: "bg-zinc-400 dark:bg-zinc-500",
-        primary: "bg-blue-500",
-        success: "bg-green-500",
-        warning: "bg-yellow-500",
-        danger: "bg-red-500",
+        primary: "bg-pink-500",
+        success: "bg-emerald-500",
+        warning: "bg-amber-500",
+        danger: "bg-rose-500",
         info: "bg-cyan-500",
     }
 

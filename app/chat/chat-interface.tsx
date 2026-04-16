@@ -1,10 +1,11 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import type { ChatMessage, SessionResponse } from "@/types/types"
+import { useCallback, useEffect, useRef, useState } from "react"
+import type { ChatMessage, SessionResponse, Suggestion } from "@/types/types"
 import { MessageBubble, Button, Badge } from "@/components/ui"
 import { ChatInput } from "./chat-input"
 import { sendMessage } from "@/lib/chat-api"
+import { fetchSuggestions, markSuggestionUsed } from "@/lib/suggestions-api"
 import { ArrowLeft } from "lucide-react"
 
 type ChatInterfaceProps = {
@@ -16,6 +17,10 @@ type ChatInterfaceProps = {
 export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps) {
     const [messages, setMessages] = useState<ChatMessage[]>([])
     const [isSending, setIsSending] = useState(false)
+    const [suggestions, setSuggestions] = useState<Suggestion[]>([])
+    const [isSuggestionsLoading, setIsSuggestionsLoading] = useState(false)
+    const [tension, setTension] = useState(session.tension)
+    const [nextActor, setNextActor] = useState(session.next_actor)
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
     const scrollToBottom = () => {
@@ -26,7 +31,36 @@ export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps
         scrollToBottom()
     }, [messages])
 
+    // Build 3 manual suggestions from character/scene info on first load
+    useEffect(() => {
+        const character = Object.values(session.characters)[0]
+        const characterName = character?.name ?? "them"
+        const manualSuggestions: Suggestion[] = [
+            { id: "manual-1", text: `${characterName}! There is earthquake, come hide below table` },
+            { id: "manual-2", text: "I'm new employee here, can you help me to find the bathroom?" },
+            { id: "manual-3", text: "I had fight with my wife today, I don't know how to make her happy" },
+        ]
+        setSuggestions(manualSuggestions)
+    }, [session])
+
+    const loadSingleSuggestion = useCallback(async () => {
+        setIsSuggestionsLoading(true)
+        setSuggestions([])
+        try {
+            const res = await fetchSuggestions(session.session_id, 1)
+            setSuggestions(res.suggestions)
+        } catch (err) {
+            console.error("[Suggestions] Failed to load suggestion:", err)
+            // silently fail — no suggestion shown
+        } finally {
+            setIsSuggestionsLoading(false)
+        }
+    }, [session.session_id])
+
     const handleSendMessage = async (messageText: string) => {
+        // Clear suggestions while waiting for AI reply
+        setSuggestions([])
+
         // Add user message
         const userMessage: ChatMessage = {
             speaker: "user",
@@ -45,13 +79,21 @@ export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps
 
             console.log("Received response:", response)
 
-            // Add AI response
-            const aiMessage: ChatMessage = {
-                speaker: response.speaker,
-                message: response.message,
+            // Add AI response messages
+            const newAiMessages = response.messages.map((msg) => ({
+                speaker: msg.speaker,
+                message: msg.message,
                 timestamp: new Date(),
-            }
-            setMessages((prev) => [...prev, aiMessage])
+            }))
+            
+            setMessages((prev) => [...prev, ...newAiMessages])
+
+            // Update tension and next actor from the response
+            setTension(response.tension)
+            setNextActor(response.next_actor)
+
+            // After AI reply, fetch exactly 1 LLM suggestion
+            loadSingleSuggestion()
         } catch (error) {
             // Add error message
             const errorMessage: ChatMessage = {
@@ -63,6 +105,19 @@ export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps
         } finally {
             setIsSending(false)
         }
+    }
+
+    const handleSuggestionSelect = async (_text: string, id: string) => {
+        // Only mark DB suggestions as used (manual ones have "manual-" prefix)
+        if (!id.startsWith("manual-")) {
+            try {
+                await markSuggestionUsed(id)
+            } catch {
+                // ignore
+            }
+        }
+        // Clear suggestions so the user focuses on the pre-filled input
+        setSuggestions([])
     }
 
     const getAvatarDetails = (speaker: string) => {
@@ -102,7 +157,7 @@ export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps
 
 
     return (
-        <div className="flex flex-col w-full items-center h-screen bg-gradient-to-br from-zinc-50 via-white to-zinc-50 dark:from-zinc-950 dark:via-black dark:to-zinc-950">
+        <div className="flex flex-col w-full items-center h-screen bg-white">
             {/* Header */}
             <div className="w-full max-w-4/5 mx-auto h-full flex flex-col pt-4 pb-4">
                 <div className="relative flex items-center justify-center py-4">
@@ -115,11 +170,11 @@ export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps
                         <ArrowLeft className="w-6 h-6" />
                     </Button>
                     <div className="text-center">
-                        <h1 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                        <h1 className="text-lg font-semibold text-black">
                             {sceneName}
                         </h1>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                            Tension: {session.tension} • Next: {session.next_actor}
+                        <p className="text-xs text-black/60">
+                            Tension: {tension} • Next: {nextActor}
                         </p>
                     </div>
                 </div>
@@ -148,11 +203,14 @@ export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps
                     <div ref={messagesEndRef} />
                 </div>
 
-                {/* Input */}
+                {/* Input + Suggestions */}
                 <ChatInput
                     onSend={handleSendMessage}
                     disabled={isSending}
                     placeholder={isSending ? "Waiting for response..." : "Type your message..."}
+                    suggestions={suggestions}
+                    isSuggestionsLoading={isSuggestionsLoading}
+                    onSuggestionSelect={handleSuggestionSelect}
                 />
             </div>
         </div>

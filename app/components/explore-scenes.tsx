@@ -129,10 +129,10 @@ export function ExploreScenes({
             {!hideHeader && (
                 <div className="flex items-center justify-between mb-6">
                     <div>
-                        <h2 className="text-2xl md:text-3xl font-bold text-zinc-100 mb-2">
+                        <h2 className="text-2xl md:text-3xl font-bold text-black mb-2">
                             Explore Scenes
                         </h2>
-                        <p className="text-sm text-zinc-400">
+                        <p className="text-sm text-black/60">
                             Choose a setting for your conversation
                         </p>
                     </div>

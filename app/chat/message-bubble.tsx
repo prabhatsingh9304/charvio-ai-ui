@@ -32,8 +32,8 @@ export function MessageBubble({ message, avatarUrl, senderName }: MessageBubbleP
                 className={`max-w-[80%] rounded-2xl px-4 py-3 ${isUser
                     ? "bg-gradient-to-br from-blue-500 to-purple-600 text-white ml-auto"
                     : isNarrator
-                        ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 italic"
-                        : "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50"
+                        ? "bg-zinc-100 dark:bg-zinc-800 text-black dark:text-pink-100 italic"
+                        : "bg-zinc-100 dark:bg-zinc-800 text-black dark:text-pink-100"
                     }`}
             >
                 {!isUser && (
@@ -44,7 +44,7 @@ export function MessageBubble({ message, avatarUrl, senderName }: MessageBubbleP
                 <div className="text-sm leading-relaxed whitespace-pre-wrap markdown-content">
                     <ReactMarkdown
                         components={{
-                            strong: ({ node, ...props }) => <span className="font-bold text-sky-400" {...props} />
+                            strong: ({ node, ...props }) => <span className="font-bold text-pink-600 dark:text-pink-400" {...props} />
                         }}
                     >
                         {message.message}

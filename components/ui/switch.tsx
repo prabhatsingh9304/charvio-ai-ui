@@ -65,8 +65,8 @@ export function Switch({
                         rounded-full
                         transition-all duration-200
                         ${checked
-                            ? "bg-gradient-to-r from-red-600 to-rose-700"
-                            : "bg-zinc-700 dark:bg-zinc-800"
+                            ? "bg-gradient-to-r from-pink-500 to-rose-400"
+                            : "bg-pink-200 dark:bg-pink-900/30"
                         }
                         ${disabled ? "opacity-50 cursor-not-allowed" : ""}
                     `}
