@@ -12,15 +12,14 @@ export function SuggestionBubbles({ suggestions, onSelect, isLoading }: Suggesti
     if (!isLoading && suggestions.length === 0) return null
 
     return (
-        <div className="w-full px-1 pb-2">
+        <div className="w-full pb-1.5">
             <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                 {isLoading ? (
-                    // Skeleton loading pills
                     <>
                         {[110].map((w, i) => (
                             <div
                                 key={i}
-                                className="h-8 rounded-full bg-pink-100 dark:bg-pink-900 animate-pulse shrink-0"
+                                className="h-8 rounded-full bg-[#d9fdd3] animate-pulse shrink-0"
                                 style={{ width: `${w}px` }}
                             />
                         ))}
@@ -32,19 +31,19 @@ export function SuggestionBubbles({ suggestions, onSelect, isLoading }: Suggesti
                             onClick={() => onSelect(suggestion.text, suggestion.id)}
                             className="
                                 shrink-0
-                                px-4 py-1.5
-                                text-sm font-medium
+                                px-3.5 py-1.5
+                                text-[13px]
                                 rounded-full
-                                border border-pink-200 dark:border-pink-800
-                                bg-pink-50/50 dark:bg-pink-950/50
-                                text-black dark:text-pink-100
-                                hover:bg-pink-100 dark:hover:bg-pink-900/60
-                                hover:border-pink-400 dark:hover:border-pink-600
-                                hover:shadow-sm
+                                border border-[#00a884]/30
+                                bg-white
+                                text-[#111b21]
+                                hover:bg-[#d9fdd3]/50
+                                hover:border-[#00a884]/50
                                 active:scale-95
                                 transition-all duration-150 ease-out
                                 whitespace-nowrap
                                 cursor-pointer
+                                shadow-sm
                             "
                         >
                             {suggestion.text}

@@ -41,24 +41,24 @@ export function Accordion({
                 return (
                     <div
                         key={item.id}
-                        className="border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden transition-all duration-200 hover:border-zinc-300 dark:hover:border-zinc-700"
+                        className="border border-pink-200 rounded-xl overflow-hidden transition-all duration-200 hover:border-pink-300"
                     >
                         <button
                             onClick={() => toggleItem(item.id)}
-                            className="w-full flex items-center justify-between p-4 text-left bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-200"
+                            className="w-full flex items-center justify-between p-4 text-left bg-white hover:bg-pink-50/50 transition-colors duration-200"
                         >
                             <div className="flex items-center gap-3">
                                 {item.icon && (
-                                    <span className="text-zinc-600 dark:text-zinc-400">
+                                    <span className="text-gray-500">
                                         {item.icon}
                                     </span>
                                 )}
-                                <span className="font-medium text-zinc-900 dark:text-zinc-50">
+                                <span className="font-medium text-gray-900">
                                     {item.title}
                                 </span>
                             </div>
                             <svg
-                                className={`w-5 h-5 text-zinc-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                                className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
                                     }`}
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -73,8 +73,8 @@ export function Accordion({
                             </svg>
                         </button>
                         {isOpen && (
-                            <div className="p-4 pt-0 bg-white dark:bg-zinc-900 animate-fade-in">
-                                <div className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                            <div className="p-4 pt-0 bg-white animate-fade-in">
+                                <div className="text-sm text-gray-600 leading-relaxed">
                                     {item.content}
                                 </div>
                             </div>

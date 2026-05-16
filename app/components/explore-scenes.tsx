@@ -85,7 +85,7 @@ export function ExploreScenes({
                 {showLeftArrow && (
                     <button
                         onClick={() => scroll('left')}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white backdrop-blur-sm transition-all -ml-2"
+                        className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white backdrop-blur-sm transition-all -ml-2"
                         aria-label="Scroll left"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
@@ -100,7 +100,7 @@ export function ExploreScenes({
                 >
                     <div className="flex gap-4 min-w-max">
                         {scenes.map((scene) => (
-                            <div key={scene.id} className="w-[320px] md:w-[360px]">
+                            <div key={scene.id} className="w-[260px] sm:w-[320px] md:w-[360px]">
                                 <SceneCard
                                     scene={scene}
                                     selected={selectedId === scene.id}
@@ -114,7 +114,7 @@ export function ExploreScenes({
                 {showRightArrow && (
                     <button
                         onClick={() => scroll('right')}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white backdrop-blur-sm transition-all -mr-2"
+                        className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white backdrop-blur-sm transition-all -mr-2"
                         aria-label="Scroll right"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
@@ -125,14 +125,14 @@ export function ExploreScenes({
     };
 
     return (
-        <section className="mb-16">
+        <section className="mb-8 sm:mb-16">
             {!hideHeader && (
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
                     <div>
-                        <h2 className="text-2xl md:text-3xl font-bold text-black mb-2">
+                        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">
                             Explore Scenes
                         </h2>
-                        <p className="text-sm text-black/60">
+                        <p className="text-xs sm:text-sm text-gray-600">
                             Choose a setting for your conversation
                         </p>
                     </div>

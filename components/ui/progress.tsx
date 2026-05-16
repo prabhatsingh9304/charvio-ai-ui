@@ -24,7 +24,7 @@ export function Progress({
     }
 
     const variantStyles = {
-        default: "bg-pink-100 dark:bg-pink-900/30",
+        default: "bg-pink-100",
         gradient: "bg-gradient-to-r from-pink-500 to-rose-400",
         success: "bg-gradient-to-r from-emerald-500 to-green-600",
         warning: "bg-gradient-to-r from-amber-500 to-orange-600",
@@ -35,10 +35,10 @@ export function Progress({
         <div className={`w-full ${className}`}>
             {showLabel && (
                 <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                    <span className="text-sm font-medium text-gray-600">
                         Progress
                     </span>
-                    <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+                    <span className="text-sm font-semibold text-gray-900">
                         {Math.round(percentage)}%
                     </span>
                 </div>
@@ -46,7 +46,7 @@ export function Progress({
             <div
                 className={`
                     w-full ${sizeStyles[size]} 
-                    bg-zinc-200 dark:bg-zinc-800 
+                    bg-pink-100 
                     rounded-full overflow-hidden
                 `}
             >

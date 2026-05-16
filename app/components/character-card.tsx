@@ -34,7 +34,7 @@ export function CharacterCard({ character, scene, isCreating, onStartChat, selec
                         />
                         <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between">
-                                <CardTitle className="text-black truncate mb-1">
+                                <CardTitle className="text-gray-900 truncate mb-1">
                                     {character.name}
                                 </CardTitle>
                                 {selected && <Badge variant="primary" size="sm">Selected</Badge>}
@@ -59,16 +59,16 @@ export function CharacterCard({ character, scene, isCreating, onStartChat, selec
                                 />
                             </div>
                         )}
-                        <p className="text-sm text-black/80 leading-relaxed line-clamp-2 min-h-[40px]">
+                        <p className="text-sm text-gray-700 leading-relaxed line-clamp-2 min-h-[40px]">
                             {character.description}
                         </p>
 
                         <div className="space-y-2">
                             <div>
-                                <span className="text-xs font-semibold text-black/40 block mb-1">
+                                <span className="text-xs font-semibold text-gray-500 block mb-1">
                                     Personality
                                 </span>
-                                <p className="text-xs text-black/70 line-clamp-2">
+                                <p className="text-xs text-gray-600 line-clamp-2">
                                     {character.personality}
                                 </p>
                             </div>

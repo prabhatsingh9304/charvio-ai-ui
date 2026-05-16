@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import type { ChatMessage, SessionResponse, Suggestion } from "@/types/types"
-import { MessageBubble, Button, Badge } from "@/components/ui"
+import { MessageBubble, Avatar } from "@/components/ui"
 import { ChatInput } from "./chat-input"
 import { sendMessage } from "@/lib/chat-api"
 import { fetchSuggestions, markSuggestionUsed } from "@/lib/suggestions-api"
@@ -10,11 +10,10 @@ import { ArrowLeft } from "lucide-react"
 
 type ChatInterfaceProps = {
     session: SessionResponse
-    sceneName: string
     onBack: () => void
 }
 
-export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps) {
+export function ChatInterface({ session, onBack }: ChatInterfaceProps) {
     const [messages, setMessages] = useState<ChatMessage[]>([])
     const [isSending, setIsSending] = useState(false)
     const [suggestions, setSuggestions] = useState<Suggestion[]>([])
@@ -47,7 +46,7 @@ export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps
         setIsSuggestionsLoading(true)
         setSuggestions([])
         try {
-            const res = await fetchSuggestions(session.session_id, 1)
+            const res = await fetchSuggestions(session.session_id, 3)
             setSuggestions(res.suggestions)
         } catch (err) {
             console.error("[Suggestions] Failed to load suggestion:", err)
@@ -71,16 +70,16 @@ export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps
         setIsSending(true)
 
         try {
-            console.log("Sending message to API:", messageText)
-            console.log("Session ID:", session.session_id)
 
             // Send to API
             const response = await sendMessage(session.session_id, messageText)
 
-            console.log("Received response:", response)
-
-            // Add AI response messages
-            const newAiMessages = response.messages.map((msg) => ({
+            // Normalize response: API returns either a `messages` array or a single `speaker`/`message`
+            const responseMessages = response.messages
+                ?? (response.speaker && response.message
+                    ? [{ speaker: response.speaker, message: response.message }]
+                    : [])
+            const newAiMessages = responseMessages.map((msg) => ({
                 speaker: msg.speaker,
                 message: msg.message,
                 timestamp: new Date(),
@@ -156,58 +155,78 @@ export function ChatInterface({ session, sceneName, onBack }: ChatInterfaceProps
 
 
 
+    const characterNames = Object.values(session.characters)
+        .map((c) => c.name)
+        .join(", ")
+
+    const firstCharacter = Object.values(session.characters)[0]
+
     return (
-        <div className="flex flex-col w-full items-center h-screen bg-white">
-            {/* Header */}
-            <div className="w-full max-w-4/5 mx-auto h-full flex flex-col pt-4 pb-4">
-                <div className="relative flex items-center justify-center py-4">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={onBack}
-                        className="absolute left-0 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50"
-                    >
-                        <ArrowLeft className="w-6 h-6" />
-                    </Button>
-                    <div className="text-center">
-                        <h1 className="text-lg font-semibold text-black">
-                            {sceneName}
-                        </h1>
-                        <p className="text-xs text-black/60">
-                            Tension: {tension} • Next: {nextActor}
-                        </p>
-                    </div>
+        <div className="flex flex-col w-full h-screen bg-[#efeae2]">
+            {/* WhatsApp-style Header */}
+            <div className="bg-[#075E54] text-white px-2 sm:px-4 py-2 flex items-center gap-2 sm:gap-3 shadow-md z-30 shrink-0">
+                <button
+                    onClick={onBack}
+                    className="p-1 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
+                >
+                    <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+
+                <div className="relative">
+                    <Avatar
+                        src={firstCharacter?.image || undefined}
+                        name={firstCharacter?.name ?? "Character"}
+                        size="md"
+                    />
+                    <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#25D366] border-2 border-[#075E54] rounded-full" />
                 </div>
 
-                {/* Messages */}
-                <div className="flex-1 overflow-y-auto px-4 py-6 pb-4">
-                    {messages.length === 0 ? (
-                        <div className="text-center py-12">
-                            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-                                Start a conversation by typing a message below
-                            </p>
+                <div className="flex-1 min-w-0">
+                    <h1 className="text-base font-medium truncate leading-tight">
+                        {firstCharacter?.name ?? "Character"}
+                    </h1>
+                    <p className="text-xs text-white/70 truncate">
+                        {isSending ? "typing..." : "online"}
+                    </p>
+                </div>
+
+                {/* <div className="hidden sm:flex items-center gap-2 text-xs text-white/60 bg-white/10 rounded-full px-3 py-1">
+                    <span>Tension: {tension}</span>
+                    <span className="text-white/30">•</span>
+                    <span>Next: {nextActor}</span>
+                </div> */}
+            </div>
+
+            {/* Chat wallpaper area */}
+            <div className="flex-1 overflow-y-auto whatsapp-wallpaper px-3 sm:px-16 py-2 sm:py-4">
+                {messages.length === 0 ? (
+                    <div className="flex items-center justify-center h-full">
+                        <div className="bg-white/80 text-[#54656f] text-sm px-4 py-2 rounded-lg shadow-sm text-center">
+                            Start the conversation by sending a message
                         </div>
-                    ) : (
-                        messages.map((msg, index) => {
-                            const { avatarUrl, name } = getAvatarDetails(msg.speaker)
-                            return (
-                                <MessageBubble
-                                    key={index}
-                                    message={msg}
-                                    avatarUrl={avatarUrl}
-                                    senderName={name}
-                                />
-                            )
-                        })
-                    )}
-                    <div ref={messagesEndRef} />
-                </div>
+                    </div>
+                ) : (
+                    messages.map((msg, index) => {
+                        const { avatarUrl, name } = getAvatarDetails(msg.speaker)
+                        return (
+                            <MessageBubble
+                                key={index}
+                                message={msg}
+                                avatarUrl={avatarUrl}
+                                senderName={name}
+                            />
+                        )
+                    })
+                )}
+                <div ref={messagesEndRef} />
+            </div>
 
-                {/* Input + Suggestions */}
+            {/* Input + Suggestions */}
+            <div className="bg-[#f0f2f5] border-t border-[#d1d7db] px-2 sm:px-12 shrink-0">
                 <ChatInput
                     onSend={handleSendMessage}
                     disabled={isSending}
-                    placeholder={isSending ? "Waiting for response..." : "Type your message..."}
+                    placeholder={isSending ? "Waiting for response..." : "Type a message"}
                     suggestions={suggestions}
                     isSuggestionsLoading={isSuggestionsLoading}
                     onSuggestionSelect={handleSuggestionSelect}

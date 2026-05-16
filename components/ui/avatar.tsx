@@ -24,7 +24,7 @@ export function Avatar({
 
     const statusColors = {
         online: "bg-green-500",
-        offline: "bg-zinc-400",
+        offline: "bg-gray-400",
         away: "bg-yellow-500",
         busy: "bg-rose-500",
     }
@@ -51,12 +51,12 @@ export function Avatar({
                 className={`
                     ${sizeStyles[size]} 
                     rounded-full overflow-hidden 
-                    bg-gradient-to-br from-pink-500 to-rose-400 
+                    bg-gradient-to-br from-[#128C7E] to-[#075E54] 
                     flex items-center justify-center 
                     text-white font-semibold
-                    ring-2 ring-pink-100/50 dark:ring-pink-900/50
+                    ring-2 ring-[#128C7E]/30
                     transition-all duration-200
-                    hover:ring-4 hover:ring-pink-400/30 dark:hover:ring-pink-500/30
+                    hover:ring-4 hover:ring-[#128C7E]/20
                     backdrop-blur-sm
                 `}
             >
@@ -77,7 +77,7 @@ export function Avatar({
                         ${statusSizes[size]} 
                         ${statusColors[status]} 
                         rounded-full 
-                        ring-2 ring-white dark:ring-zinc-900
+                        ring-2 ring-white
                         ${status === "online" ? "animate-pulse" : ""}
                     `}
                 />

@@ -56,7 +56,7 @@ export function Modal({
             <div
                 className={`
                     relative w-full ${sizeStyles[size]} 
-                    bg-white dark:bg-zinc-900 
+                    bg-white 
                     rounded-2xl shadow-2xl 
                     max-h-[90vh] overflow-y-auto
                     animate-scale-in
@@ -65,16 +65,16 @@ export function Modal({
             >
                 {/* Header */}
                 {(title || showCloseButton) && (
-                    <div className="flex items-center justify-between p-6 border-b border-zinc-200 dark:border-zinc-800">
+                    <div className="flex items-center justify-between p-6 border-b border-pink-200">
                         {title && (
-                            <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
+                            <h2 className="text-xl font-semibold text-gray-900">
                                 {title}
                             </h2>
                         )}
                         {showCloseButton && (
                             <button
                                 onClick={onClose}
-                                className="ml-auto p-2 rounded-lg text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                                className="ml-auto p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-pink-50 transition-colors"
                             >
                                 <svg
                                     className="w-5 h-5"

@@ -4,34 +4,38 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #000000;
+  --foreground: #1a1a2e;
   --primary: #f06292;
   --primary-foreground: #ffffff;
-  --secondary: #fffafa;
+  --secondary: #fff5f7;
   --secondary-foreground: #ad1457;
   --accent: #ff80ab;
   --accent-foreground: #ffffff;
   --card: #ffffff;
-  --card-foreground: #000000;
-  --border: #f8bbd0;
-  --input: #f8bbd0;
+  --card-foreground: #1a1a2e;
+  --muted: #6b7280;
+  --border: #f9a8c9;
+  --input: #fce4ec;
+  --input-foreground: #1a1a2e;
   --ring: #f06292;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #ffffff;
-    --foreground: #000000;
+    --foreground: #1a1a2e;
     --primary: #f06292;
     --primary-foreground: #ffffff;
-    --secondary: #fffafa;
+    --secondary: #fff5f7;
     --secondary-foreground: #ad1457;
     --accent: #ff80ab;
     --accent-foreground: #ffffff;
     --card: #ffffff;
-    --card-foreground: #000000;
-    --border: #f8bbd0;
-    --input: #f8bbd0;
+    --card-foreground: #1a1a2e;
+    --muted: #6b7280;
+    --border: #f9a8c9;
+    --input: #fce4ec;
+    --input-foreground: #1a1a2e;
     --ring: #f06292;
   }
 }
@@ -40,7 +44,9 @@
   body {
     color: var(--foreground);
     background: var(--background);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -82,7 +88,6 @@
 }
 
 @layer base {
-
   /* Smooth transitions */
   * {
     transition-property: background-color, border-color, color, fill, stroke;
@@ -151,4 +156,20 @@
 
 .animate-shimmer {
   animation: shimmer 2s infinite;
+}
+
+/* WhatsApp-style wallpaper */
+.whatsapp-wallpaper {
+  background-color: #efeae2;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d6cfc4' fill-opacity='0.35'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

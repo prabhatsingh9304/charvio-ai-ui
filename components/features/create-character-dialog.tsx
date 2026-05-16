@@ -107,7 +107,7 @@ export function CreateCharacterDialog({ isOpen, onClose }: CreateCharacterDialog
                     <div className="p-6 space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-black">Name</label>
+                                <label className="text-sm font-medium text-gray-800">Name</label>
                                 <Input
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -117,9 +117,9 @@ export function CreateCharacterDialog({ isOpen, onClose }: CreateCharacterDialog
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-black">Scene</label>
+                                <label className="text-sm font-medium text-gray-800">Scene</label>
                                 <select
-                                    className="w-full px-3 py-2 bg-white dark:bg-pink-950/50 border border-pink-200 dark:border-pink-800 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 text-black dark:text-pink-100"
+                                    className="w-full px-3 py-2 bg-white border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 text-gray-900"
                                     value={formData.scene_id}
                                     onChange={(e) => setFormData({ ...formData, scene_id: e.target.value })}
                                     required
@@ -135,9 +135,9 @@ export function CreateCharacterDialog({ isOpen, onClose }: CreateCharacterDialog
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-black">Description</label>
+                            <label className="text-sm font-medium text-gray-800">Description</label>
                             <textarea
-                                className="w-full px-3 py-2 bg-white dark:bg-pink-950/50 border border-pink-200 dark:border-pink-800 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[80px] text-black dark:text-pink-100 placeholder:text-pink-400"
+                                className="w-full px-3 py-2 bg-white border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[80px] text-gray-900 placeholder:text-gray-400"
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                 placeholder="Brief description..."
@@ -147,9 +147,9 @@ export function CreateCharacterDialog({ isOpen, onClose }: CreateCharacterDialog
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-black">Personality</label>
+                                <label className="text-sm font-medium text-gray-800">Personality</label>
                                 <textarea
-                                    className="w-full px-3 py-2 bg-white dark:bg-pink-950/50 border border-pink-200 dark:border-pink-800 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[100px] text-pink-900 dark:text-pink-100 placeholder:text-pink-400"
+                                    className="w-full px-3 py-2 bg-white border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[100px] text-gray-900 placeholder:text-gray-400"
                                     value={formData.personality}
                                     onChange={(e) => setFormData({ ...formData, personality: e.target.value })}
                                     placeholder="Character's personality traits..."
@@ -158,9 +158,9 @@ export function CreateCharacterDialog({ isOpen, onClose }: CreateCharacterDialog
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-black">Background</label>
+                                <label className="text-sm font-medium text-gray-800">Background</label>
                                 <textarea
-                                    className="w-full px-3 py-2 bg-white dark:bg-pink-950/50 border border-pink-200 dark:border-pink-800 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[100px] text-pink-900 dark:text-pink-100 placeholder:text-pink-400"
+                                    className="w-full px-3 py-2 bg-white border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[100px] text-gray-900 placeholder:text-gray-400"
                                     value={formData.background}
                                     onChange={(e) => setFormData({ ...formData, background: e.target.value })}
                                     placeholder="Backstory and history..."
@@ -170,11 +170,11 @@ export function CreateCharacterDialog({ isOpen, onClose }: CreateCharacterDialog
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-black">Image</label>
+                            <label className="text-sm font-medium text-gray-800">Image</label>
                             <div
                                 className={`
                                     relative border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors
-                                    ${isDragging ? "border-pink-500 bg-pink-500/10" : "border-pink-200 hover:border-pink-300 bg-pink-50/50 dark:bg-pink-950/50"}
+                                    ${isDragging ? "border-pink-500 bg-pink-500/10" : "border-pink-300 hover:border-pink-400 bg-pink-50/50"}
                                 `}
                                 onDragOver={handleDragOver}
                                 onDragLeave={handleDragLeave}
@@ -206,10 +206,10 @@ export function CreateCharacterDialog({ isOpen, onClose }: CreateCharacterDialog
                             </div>
                             <div className="relative">
                                 <div className="absolute inset-0 flex items-center">
-                                    <span className="w-full border-t border-pink-100 dark:border-pink-800" />
+                                    <span className="w-full border-t border-pink-200" />
                                 </div>
                                 <div className="relative flex justify-center text-xs uppercase">
-                                    <span className="bg-white dark:bg-pink-950 px-2 text-pink-400">Or use URL</span>
+                                    <span className="bg-white px-2 text-gray-500">Or use URL</span>
                                 </div>
                             </div>
                             <Input

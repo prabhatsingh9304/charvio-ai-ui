@@ -61,7 +61,7 @@ export function DialogContent({
         <div
             className={`
                 relative w-full ${sizeStyles[size]} 
-                bg-white dark:bg-zinc-900 
+                bg-white 
                 rounded-2xl shadow-2xl 
                 max-h-[90vh] overflow-y-auto
                 animate-scale-in
@@ -81,7 +81,7 @@ interface DialogHeaderProps {
 
 export function DialogHeader({ children, className = "" }: DialogHeaderProps) {
     return (
-        <div className={`p-6 border-b border-zinc-200 dark:border-zinc-800 ${className}`}>
+        <div className={`p-6 border-b border-pink-200 ${className}`}>
             {children}
         </div>
     )
@@ -94,7 +94,7 @@ interface DialogTitleProps {
 
 export function DialogTitle({ children, className = "" }: DialogTitleProps) {
     return (
-        <h2 className={`text-xl font-semibold text-zinc-900 dark:text-zinc-50 ${className}`}>
+        <h2 className={`text-xl font-semibold text-gray-900 ${className}`}>
             {children}
         </h2>
     )
@@ -107,7 +107,7 @@ interface DialogFooterProps {
 
 export function DialogFooter({ children, className = "" }: DialogFooterProps) {
     return (
-        <div className={`p-6 border-t border-zinc-200 dark:border-zinc-800 flex justify-end gap-2 ${className}`}>
+        <div className={`p-6 border-t border-pink-200 flex justify-end gap-2 ${className}`}>
             {children}
         </div>
     )

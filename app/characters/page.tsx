@@ -98,7 +98,7 @@ function CharactersPageContent() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="container md:w-8/9 mx-auto px-4 py-8">
+      <div className="container md:w-8/9 mx-auto px-4 py-4 sm:py-8">
         {/* Header */}
         <PageHeader
           title="Meet the Characters"

@@ -59,7 +59,9 @@ export type ChatRequest = {
 
 export type ChatResponse = {
     session_id: string
-    messages: {
+    speaker?: string
+    message?: string
+    messages?: {
         speaker: string
         message: string
     }[]

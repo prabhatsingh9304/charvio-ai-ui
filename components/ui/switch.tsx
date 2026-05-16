@@ -66,7 +66,7 @@ export function Switch({
                         transition-all duration-200
                         ${checked
                             ? "bg-gradient-to-r from-pink-500 to-rose-400"
-                            : "bg-pink-200 dark:bg-pink-900/30"
+                            : "bg-pink-200"
                         }
                         ${disabled ? "opacity-50 cursor-not-allowed" : ""}
                     `}
@@ -85,7 +85,7 @@ export function Switch({
             {label && (
                 <span
                     className={`
-                        text-sm font-medium text-zinc-700 dark:text-zinc-300
+                        text-sm font-medium text-gray-700
                         ${disabled ? "opacity-50" : ""}
                     `}
                 >

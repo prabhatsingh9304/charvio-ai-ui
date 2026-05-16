@@ -65,11 +65,9 @@ export function AppContent() {
 
     // If we have an active chat session, show the chat interface
     if (activeSession) {
-        const sessionScene = scenes.find(s => s.id === activeSession.scene_id)
         return (
             <ChatInterface
                 session={activeSession}
-                sceneName={sessionScene?.name || "Unknown Scene"}
                 onBack={handleBackToCharacters}
             />
         )
@@ -79,8 +77,8 @@ export function AppContent() {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
                 <div className="text-center">
-                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-pink-600 border-r-transparent dark:border-pink-400 dark:border-r-transparent"></div>
-                    <p className="mt-4 text-sm text-pink-600 dark:text-pink-400">Loading...</p>
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-pink-500 border-r-transparent"></div>
+                    <p className="mt-4 text-sm text-gray-600">Loading...</p>
                 </div>
             </div>
         )
@@ -90,8 +88,8 @@ export function AppContent() {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
                 <div className="text-center max-w-md">
-                    <p className="text-rose-600 dark:text-rose-400 font-medium">Error loading data</p>
-                    <p className="mt-2 text-sm text-pink-600 dark:text-pink-400">{error}</p>
+                    <p className="text-rose-600 font-medium">Error loading data</p>
+                    <p className="mt-2 text-sm text-gray-600">{error}</p>
                 </div>
             </div>
         )
@@ -103,24 +101,24 @@ export function AppContent() {
             label: "Home",
             content: (
                 <div className="max-w-3xl mx-auto text-center space-y-6">
-                    <h1 className="text-4xl font-bold text-black">
+                    <h1 className="text-4xl font-bold text-gray-900">
                         Welcome to Sim City
                     </h1>
-                    <p className="text-lg text-black/70">
+                    <p className="text-lg text-gray-600">
                         Explore immersive scenes and meet fascinating characters in this interactive world.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
-                        <div className="p-6 rounded-xl bg-white border border-pink-100 dark:border-pink-800 shadow-sm">
-                            <div className="text-3xl font-bold text-black">{scenes.length}</div>
-                            <div className="text-sm text-pink-700 dark:text-pink-400 mt-1">Scenes</div>
+                        <div className="p-6 rounded-xl bg-white border border-pink-200 shadow-sm">
+                            <div className="text-3xl font-bold text-gray-900">{scenes.length}</div>
+                            <div className="text-sm text-pink-700 mt-1">Scenes</div>
                         </div>
-                        <div className="p-6 rounded-xl bg-white border border-rose-100 dark:border-rose-800 shadow-sm">
-                            <div className="text-3xl font-bold text-black">{characters.length}</div>
-                            <div className="text-sm text-rose-700 dark:text-rose-400 mt-1">Characters</div>
+                        <div className="p-6 rounded-xl bg-white border border-rose-200 shadow-sm">
+                            <div className="text-3xl font-bold text-gray-900">{characters.length}</div>
+                            <div className="text-sm text-rose-700 mt-1">Characters</div>
                         </div>
-                        <div className="p-6 rounded-xl bg-white border border-fuchsia-100 dark:border-fuchsia-800 shadow-sm">
-                            <div className="text-3xl font-bold text-black">∞</div>
-                            <div className="text-sm text-fuchsia-700 dark:text-fuchsia-400 mt-1">Stories</div>
+                        <div className="p-6 rounded-xl bg-white border border-pink-200 shadow-sm">
+                            <div className="text-3xl font-bold text-gray-900">∞</div>
+                            <div className="text-sm text-pink-700 mt-1">Stories</div>
                         </div>
                     </div>
                 </div>
@@ -132,20 +130,20 @@ export function AppContent() {
             content: (
                 <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+                        <h2 className="text-2xl font-bold text-gray-900">
                             Scenes
                         </h2>
                         {selectedScene && (
                             <button
                                 onClick={() => setSelectedScene(null)}
-                                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
+                                className="text-sm text-gray-500 hover:text-gray-800 transition-colors"
                             >
                                 Clear selection
                             </button>
                         )}
                     </div>
                     {scenes.length === 0 ? (
-                        <p className="text-center text-zinc-500 dark:text-zinc-400 py-12">
+                        <p className="text-center text-gray-500 py-12">
                             No scenes available
                         </p>
                     ) : (
@@ -169,10 +167,10 @@ export function AppContent() {
             content: (
                 <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+                        <h2 className="text-2xl font-bold text-gray-900">
                             Characters
                             {selectedScene && (
-                                <span className="ml-3 text-base font-normal text-zinc-600 dark:text-zinc-400">
+                                <span className="ml-3 text-base font-normal text-gray-500">
                                     in {selectedScene.name}
                                 </span>
                             )}
@@ -180,14 +178,14 @@ export function AppContent() {
                         {selectedScene && (
                             <button
                                 onClick={() => setSelectedScene(null)}
-                                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
+                                className="text-sm text-gray-500 hover:text-gray-800 transition-colors"
                             >
                                 Show all characters
                             </button>
                         )}
                     </div>
                     {filteredCharacters.length === 0 ? (
-                        <p className="text-center text-zinc-500 dark:text-zinc-400 py-12">
+                        <p className="text-center text-gray-500 py-12">
                             {selectedScene
                                 ? `No characters found in ${selectedScene.name}`
                                 : "No characters available"

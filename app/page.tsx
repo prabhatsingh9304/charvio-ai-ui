@@ -72,7 +72,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">
 
-      <div className="w-full md:w-8/9 flex flex-col mt-10 mb-10">
+      <div className="w-full md:w-8/9 flex flex-col px-4 md:px-0 mt-6 md:mt-10 mb-6 md:mb-10">
         {/* Scenes Section */}
         <ExploreScenes scenes={scenes} variant="carousel" />
 

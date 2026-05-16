@@ -20,7 +20,7 @@ export function Tabs({ tabs, defaultTab }: TabsProps) {
 
     return (
         <div className="w-full">
-            <div className="border-b border-zinc-200 dark:border-zinc-800">
+            <div className="border-b border-pink-200">
                 <nav className="flex gap-8" aria-label="Tabs">
                     {tabs.map((tab) => {
                         const isActive = activeTab === tab.id
@@ -31,8 +31,8 @@ export function Tabs({ tabs, defaultTab }: TabsProps) {
                                 className={`
                   relative py-4 px-1 text-sm font-medium transition-colors duration-200
                   ${isActive
-                                        ? "text-black"
-                                        : "text-black/40 hover:text-black/70"
+                                        ? "text-gray-900"
+                                        : "text-gray-400 hover:text-gray-700"
                                     }
                 `}
                             >

@@ -26,7 +26,7 @@ export function SceneCard({ scene, selected, onClick }: SceneCardProps) {
 
                 <CardHeader>
                     <div className="flex items-start justify-between gap-2">
-                        <CardTitle className="text-black flex-1">
+                        <CardTitle className="text-gray-900 flex-1">
                             {scene.name}
                         </CardTitle>
                         {selected ? (
@@ -60,7 +60,7 @@ export function SceneCard({ scene, selected, onClick }: SceneCardProps) {
                                 />
                             </div>
                         )}
-                        <p className="text-sm text-black/80 leading-relaxed line-clamp-3 min-h-[60px]">
+                        <p className="text-sm text-gray-700 leading-relaxed line-clamp-3 min-h-[60px]">
                             {scene.description}
                         </p>
 

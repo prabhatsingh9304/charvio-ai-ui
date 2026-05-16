@@ -31,6 +31,8 @@ export async function apiClient<T>(
         const response = await fetch(url, config)
 
         if (!response.ok) {
+            const errorBody = await response.text()
+            console.error(`[API] ${method} ${url} → ${response.status}`, errorBody)
             throw new Error(`API Error: ${response.status} ${response.statusText}`)
         }
 

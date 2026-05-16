@@ -21,12 +21,12 @@ export function Badge({
     const baseStyles = "inline-flex items-center gap-1.5 font-medium rounded-full transition-all duration-200"
 
     const variantStyles = {
-        default: "bg-zinc-800/60 dark:bg-zinc-900/60 text-zinc-200 dark:text-zinc-300 backdrop-blur-md border border-zinc-700/50",
-        primary: "bg-pink-100/30 dark:bg-pink-900/40 text-black dark:text-pink-100 border border-pink-200/50 dark:border-pink-800/50 backdrop-blur-md",
-        success: "bg-emerald-100/30 dark:bg-emerald-900/40 text-black dark:text-emerald-300 border border-emerald-200/50 dark:border-emerald-800/50 backdrop-blur-md",
-        warning: "bg-amber-100/30 dark:bg-amber-900/40 text-black dark:text-amber-300 border border-amber-200/50 dark:border-amber-800/50 backdrop-blur-md",
-        danger: "bg-rose-100/30 dark:bg-rose-900/40 text-black dark:text-rose-300 border border-rose-200/50 dark:border-rose-800/50 backdrop-blur-md",
-        info: "bg-gradient-to-r from-cyan-600/20 to-blue-700/20 text-cyan-200 dark:text-cyan-300 border border-cyan-500/30 dark:border-cyan-600/30 backdrop-blur-md",
+        default: "bg-pink-50 text-gray-700 backdrop-blur-md border border-pink-200",
+        primary: "bg-pink-100/50 text-pink-800 border border-pink-300/60 backdrop-blur-md",
+        success: "bg-emerald-50 text-emerald-800 border border-emerald-200 backdrop-blur-md",
+        warning: "bg-amber-50 text-amber-800 border border-amber-200 backdrop-blur-md",
+        danger: "bg-rose-50 text-rose-800 border border-rose-200 backdrop-blur-md",
+        info: "bg-sky-50 text-sky-800 border border-sky-200 backdrop-blur-md",
     }
 
     const sizeStyles = {
@@ -36,7 +36,7 @@ export function Badge({
     }
 
     const dotColors = {
-        default: "bg-zinc-400 dark:bg-zinc-500",
+        default: "bg-gray-500",
         primary: "bg-pink-500",
         success: "bg-emerald-500",
         warning: "bg-amber-500",
