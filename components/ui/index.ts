@@ -8,14 +8,16 @@ export { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 // Form Components
 export { Button } from "./button"
 export { Input } from "./input"
+export { Textarea } from "./textarea"
+export { Select } from "./select"
 export { Switch } from "./switch"
-export { ChatInput } from "../../app/chat/chat-input"
+export { ChatInput } from "../../app/chat/components/chat-input"
 
 // Display Components
 export { Badge } from "./badge"
 export { Avatar } from "./avatar"
 export { Progress } from "./progress"
-export { MessageBubble } from "../../app/chat/message-bubble"
+export { MessageBubble } from "../../app/chat/components/message-bubble"
 
 // Feedback Components
 export { Tooltip } from "./tooltip"

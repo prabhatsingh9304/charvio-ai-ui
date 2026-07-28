@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import type { Scene } from "@/types/types"
-import { getScenes } from "@/lib/scenes-api"
-import { Card, CardHeader, CardTitle, CardContent, Badge, Button } from "@/components/ui"
-import { LoadingState, ErrorState, PageHeader, ExploreScenes } from "../components"
+import { getScenes } from "@/services/scenes.service"
+import { LoadingState, ErrorState, PageHeader } from "@/components/common"
+import { ExploreScenes } from "./components/explore-scenes"
 
 export default function ScenesPage() {
     const router = useRouter()
@@ -45,9 +45,6 @@ export default function ScenesPage() {
                     title="Explore Scenes"
                     description="Discover immersive worlds and their unique atmospheres"
                     onBack={() => router.push("/")}
-                    stats={[
-                        { value: scenes.length, label: "Total Scenes" }
-                    ]}
                 />
 
                 {/* Explore Scenes */}

@@ -3,25 +3,19 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { Character, Scene } from "@/types/types";
-import { getCharacters } from "@/lib/characters-api";
-import { getScenes } from "@/lib/scenes-api";
-import { createSession } from "@/lib/session-api";
+import { getCharacters } from "@/services/characters.service";
+import { getScenes } from "@/services/scenes.service";
+import { createSession } from "@/services/session.service";
+import { listConversations } from "@/services/conversations.service";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  Badge,
-  Button,
-  Avatar,
-  Accordion,
+  Button
 } from "@/components/ui";
 import {
   LoadingState,
   ErrorState,
   PageHeader,
-  ExploreCharacters,
-} from "../components";
+} from "@/components/common";
+import { ExploreCharacters } from "./components";
 
 export default function CharactersPage() {
   return (
@@ -50,7 +44,7 @@ function CharactersPageContent() {
       try {
         setLoading(true);
         const [charactersData, scenesData] = await Promise.all([
-          getCharacters(),
+          getCharacters(sceneFilter || undefined),
           getScenes(),
         ]);
         setCharacters(charactersData);
@@ -62,20 +56,23 @@ function CharactersPageContent() {
       }
     }
     fetchData();
-  }, []);
+  }, [sceneFilter]);
 
-  const filteredCharacters = sceneFilter
-    ? characters.filter((char) => char.scene_id === sceneFilter)
-    : characters;
-
-  const getSceneForCharacter = (sceneId: string) => {
-    return scenes.find((s) => s.id === sceneId);
-  };
+  const filteredCharacters = characters;
 
   const handleStartChat = async (character: Character) => {
     try {
       setCreatingSession(true);
-      const session = await createSession(character.scene_id);
+
+      const sceneId = sceneFilter || undefined;
+      const { conversations } = await listConversations({
+        character_id: character.id,
+        scene_id: sceneId,
+        limit: 1,
+      });
+      const recentConversationId = conversations.length > 0 ? conversations[0].id : undefined;
+
+      const session = await createSession(character.id, sceneId, recentConversationId);
       router.push(`/chat?session=${session.session_id}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create session");
@@ -97,44 +94,42 @@ function CharactersPageContent() {
     : null;
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container md:w-8/9 mx-auto px-4 py-4 sm:py-8">
-        {/* Header */}
-        <PageHeader
-          title="Meet the Characters"
-          description={
-            filterScene
-              ? `Characters in ${filterScene.name}`
-              : "Discover unique personalities and their stories"
-          }
-          onBack={() => router.push("/")}
-          actions={
-            sceneFilter && (
-              <Button
-                variant="secondary"
-                onClick={() => router.push("/characters")}
-              >
-                Show All
-              </Button>
-            )
-          }
-        />
+    <div className="container md:w-8/9 mx-auto px-4 py-4 sm:py-8">
+      {/* Header */}
+      <PageHeader
+        title="Meet the Characters"
+        description={
+          filterScene
+            ? `Characters in ${filterScene.name}`
+            : "Discover unique personalities and their stories"
+        }
+        onBack={() => router.push("/")}
+        actions={
+          sceneFilter && (
+            <Button
+              variant="secondary"
+              onClick={() => router.push("/characters")}
+            >
+              Show All
+            </Button>
+          )
+        }
+      />
 
-        {/* Characters Grid */}
-        <ExploreCharacters
-          characters={filteredCharacters}
-          scenes={scenes}
-          creatingSession={creatingSession}
-          selectedCharacterId={selectedCharacter?.id || null}
-          onStartChat={handleStartChat}
-          onSelect={(char: Character) =>
-            setSelectedCharacter(
-              selectedCharacter?.id === char.id ? null : char,
-            )
-          }
-          hideHeader
-        />
-      </div>
+      {/* Characters Grid */}
+      <ExploreCharacters
+        characters={filteredCharacters}
+        scenes={scenes}
+        creatingSession={creatingSession}
+        selectedCharacterId={selectedCharacter?.id || null}
+        onStartChat={handleStartChat}
+        onSelect={(char: Character) =>
+          setSelectedCharacter(
+            selectedCharacter?.id === char.id ? null : char,
+          )
+        }
+        hideHeader
+      />
     </div>
   );
 }

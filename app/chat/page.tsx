@@ -2,10 +2,9 @@
 
 import { useEffect, useState, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
-import { getSession } from "@/lib/session-api"
-import { ChatInterface } from "@/app/chat/chat-interface"
-import { LoadingState } from "../components/loading-state"
-import { ErrorState } from "../components/error-state"
+import { getSession, createSession } from "@/services/session.service"
+import { ChatInterface } from "@/app/chat/components/chat-interface"
+import { LoadingState, ErrorState } from "@/components/common"
 import type { SessionResponse } from "@/types/types"
 
 function ChatPageContent() {
@@ -44,6 +43,20 @@ function ChatPageContent() {
         router.push("/")
     }
 
+    const handleNewChat = async () => {
+        if (!session) return
+        try {
+            setLoading(true)
+            const characterId = Object.keys(session.characters)[0]
+            const newSession = await createSession(characterId, session.scene_id ?? undefined)
+            router.push(`/chat?session=${newSession.session_id}`)
+        } catch (err) {
+            console.error("Failed to create new chat:", err)
+            setError(err instanceof Error ? err.message : "Failed to create new chat")
+            setLoading(false)
+        }
+    }
+
     if (loading) {
         return <LoadingState />
     }
@@ -60,6 +73,7 @@ function ChatPageContent() {
         <ChatInterface
             session={session}
             onBack={handleBack}
+            onNewChat={handleNewChat}
         />
     )
 }

@@ -3,17 +3,17 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import type { Scene, Character } from "@/types/types"
-import { getScenes } from "@/lib/scenes-api"
-import { getCharacters } from "@/lib/characters-api"
-import { createSession } from "@/lib/session-api"
-import { Card, CardContent, Button } from "@/components/ui"
+import { getScenes } from "@/services/scenes.service"
+import { getCharacters } from "@/services/characters.service"
+import { createSession } from "@/services/session.service"
+import { listConversations } from "@/services/conversations.service"
+
 import {
-  HeroSection,
   LoadingState,
-  ErrorState,
-  ExploreScenes,
-  ExploreCharacters
-} from "./components"
+  ErrorState
+} from "@/components/common"
+import { ExploreCharacters } from "./characters/components"
+import { ExploreScenes } from "./scenes/components/explore-scenes"
 
 export default function Home() {
   const router = useRouter()
@@ -47,7 +47,11 @@ export default function Home() {
     try {
       setCreatingSession(true)
       setSelectedCharacterId(character.id)
-      const session = await createSession(character.scene_id)
+
+      const { conversations } = await listConversations({ character_id: character.id, limit: 1 })
+      const recentConversationId = conversations.length > 0 ? conversations[0].id : undefined
+
+      const session = await createSession(character.id, character.scene_id ?? undefined, recentConversationId)
       router.push(`/chat?session=${session.session_id}`)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create session")
@@ -55,10 +59,6 @@ export default function Home() {
       setCreatingSession(false)
       setSelectedCharacterId(null)
     }
-  }
-
-  const getSceneForCharacter = (sceneId: string) => {
-    return scenes.find(s => s.id === sceneId)
   }
 
   if (loading) {

@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Navigation } from "@/components/features/navigation";
-import { geistSans, geistMono } from "./components";
+import { Navigation } from "@/components/navigation";
+import { AuthProvider } from "@/components/auth-provider";
+import { geistSans, geistMono } from "@/components/fonts";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -24,8 +25,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navigation />
-        {children}
+        <AuthProvider>
+          <Navigation />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
