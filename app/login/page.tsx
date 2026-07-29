@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { authenticateWithFirebase } from "@/services/auth.service"
 import { Button } from "@/components/ui/button"
@@ -20,14 +20,28 @@ export default function LoginPage() {
             setError(null)
 
             const provider = new GoogleAuthProvider()
-            const result = await signInWithPopup(auth, provider)
-            
-            await result.user.reload()
-            const idToken = await result.user.getIdToken()
+            await signInWithRedirect(auth, provider)
+        } catch (err: any) {
+            console.error(err);
+            console.log("code:", err.code);
+            console.log("message:", err.message);
+            setError(err.message);
+            setLoading(false)
+        }
+    }
 
-            await authenticateWithFirebase(idToken)
-            localStorage.setItem("auth_token", idToken)
-            router.push("/")
+    const handleRedirectResult = async () => {
+        try {
+            const result = await getRedirectResult(auth)
+            if (result) {
+                setLoading(true)
+                await result.user.reload()
+                const idToken = await result.user.getIdToken()
+
+                await authenticateWithFirebase(idToken)
+                localStorage.setItem("auth_token", idToken)
+                router.push("/")
+            }
         } catch (err: any) {
             console.error(err);
             console.log("code:", err.code);
@@ -37,6 +51,10 @@ export default function LoginPage() {
             setLoading(false)
         }
     }
+
+    useEffect(() => {
+        handleRedirectResult()
+    }, [])
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-white to-rose-50 px-4">
