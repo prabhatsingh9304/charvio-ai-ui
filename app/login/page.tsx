@@ -35,7 +35,6 @@ export default function LoginPage() {
             const result = await getRedirectResult(auth)
             if (result) {
                 setLoading(true)
-                await result.user.reload()
                 const idToken = await result.user.getIdToken()
 
                 await authenticateWithFirebase(idToken)

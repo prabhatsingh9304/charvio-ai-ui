@@ -4,7 +4,10 @@ import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAMWhG6mxICsw-UuekKPNhPIr1kzDZ28Mw",
-  authDomain: "waspx-e55b2.firebaseapp.com",
+  authDomain:
+    typeof window !== "undefined"
+      ? window.location.host
+      : "waspx-e55b2.firebaseapp.com",
   projectId: "waspx-e55b2",
   storageBucket: "waspx-e55b2.firebasestorage.app",
   messagingSenderId: "374698925814",
