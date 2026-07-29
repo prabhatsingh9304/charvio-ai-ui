@@ -28,9 +28,11 @@ export default function LoginPage() {
             await authenticateWithFirebase(idToken)
             localStorage.setItem("auth_token", idToken)
             router.push("/")
-        } catch (err) {
-            const message = err instanceof Error ? err.message : "Sign in failed. Please try again."
-            setError(message)
+        } catch (err: any) {
+            console.error(err);
+            console.log("code:", err.code);
+            console.log("message:", err.message);
+            setError(err.message);
         } finally {
             setLoading(false)
         }
