@@ -1,5 +1,5 @@
 export const APP_CONFIG = {
-  name: "Sim City",
+  name: "Waspx",
   description: "Browse scenes and characters",
 } as const;
 
